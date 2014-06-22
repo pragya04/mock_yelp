@@ -46,10 +46,6 @@
     self.navigationItem.rightBarButtonItem = searchButton;
     
     self.filters = [[Filters alloc] init];
-//    [self.expanded setObject:@NO forKey:@0];
-//    [self.expanded setObject:@NO forKey:@1];
-//    [self.expanded setObject:@NO forKey:@2];
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -85,15 +81,22 @@
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     NSArray *rows = self.filters.sections[indexPath.section][@"rows"];
     cell.textLabel.text = rows[indexPath.row];
-    if ([self.expanded[@(indexPath.section)]  isEqual: @1]) {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.textLabel.text = self.filters.sections[indexPath.section][@"rows"][indexPath.row];
-    }else{
-        cell.textLabel.text = self.filters.sections[indexPath.section][@"rows"][self.selectedRow];
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    if(indexPath.section != 0) {
+        if ([self.expanded[@(indexPath.section)]  isEqual: @1]) {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.textLabel.text = self.filters.sections[indexPath.section][@"rows"][indexPath.row];
+        }else{
+            cell.textLabel.text = self.filters.sections[indexPath.section][@"rows"][self.selectedRow];
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+    } else {
+        CGRect frame = CGRectMake(250.0, 6.0, 32.0, 32.0);
+        UISwitch *deals = [[UISwitch alloc] initWithFrame:frame];
+        [cell addSubview: deals];
     }
     return cell;
 }
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
    return [self.filters.sections count];
@@ -102,18 +105,7 @@
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     NSString *sectionName;
-    switch (section)
-    {
-        case 0:
-            sectionName = NSLocalizedString(@"DISTANCE", @"distance");
-            break;
-        case 1:
-            sectionName = NSLocalizedString(@"SORT BY", @"sortby");
-            break;
-        case 2:
-            sectionName = NSLocalizedString(@"CATEGORY", @"category");
-            break;
-    }
+    sectionName = self.filters.sections[section][@"title"];
     return sectionName;
 }
 
@@ -125,34 +117,7 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     self.expanded[@(indexPath.section)] = @(![self.expanded[@(indexPath.section)] boolValue]);
     self.selectedRow = indexPath.row;
-//    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-//    if(indexPath.section == 0 ) {
-//        self.filters.distanceIndex = indexPath.row;
-//        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-//    }
-//    if(indexPath.section == 1 ) {
-//        self.filters.sortIndex = indexPath.row;
-//                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-//    }
-    
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
-    
-    
-    
-   //    if(self.expanded[@(indexPath.section)]) {
-////        
-////    } else {
-////    
-////    }
-//    
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    int previousCollapsedSectionIndex = self.collapsedSectionIndex;
-//    self.collapsedSectionIndex = indexPath.section;
-//    
-//    NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSetWithIndex:previousCollapsedSectionIndex];
-//    [indexSet addIndex:self.collapsedSectionIndex];
-//    
-//    [tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end

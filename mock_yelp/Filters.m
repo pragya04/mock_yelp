@@ -18,7 +18,8 @@
     self = [super init];
     self.allCategories = @{@"Active Life": @"active", @"Arts & Entertainment" : @"arts", @"Automotive" : @"auto", @"Beauty & Spas" : @"beautysvc", @"Education" : @"education", @"Event Planning & Services" : @"eventservices", @"Financial Services" : @"financialservices", @"Food" : @"food", @"Health & Medical" : @"health", @"Home Services" : @"homeservices", @"Hotels & Travel" : @"hotelstravel", @"Local Services" : @"localservices", @"Nightlife" : @"nightlife", @"Pets" : @"pets", @"Professional Services" : @"professional", @"Public Services & Government" : @"publicservicesgovt", @"Real Estate" : @"realestate", @"Restaurants" : @"restaurants", @"Shopping" : @"shopping"};
     
-    self.sections = @[@{@"title" :@"Distance", @"rows": @[@"Auto", @"2 blocks", @"4 blocks", @"1 mile", @"2 miles"]},
+    self.sections = @[@{@"title" :@"Most Popular", @"rows": @[@"Offering a deal"]},
+                      @{@"title" :@"Distance", @"rows": @[@"Auto", @"2 blocks", @"4 blocks", @"1 mile", @"2 miles"]},
                       @{@"title" :@"Sort by", @"rows": @[@"Best Matched", @"Distance", @"Highest Rated"]},
                       @{@"title" :@"Categories", @"rows": [self.allCategories allKeys]}
                       ];
