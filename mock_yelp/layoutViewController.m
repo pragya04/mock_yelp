@@ -97,8 +97,6 @@ NSString * const kYelpTokenSecret = @"KIsMp5VsBSR4v8Aj30GbyaV74HI";
     NSString *ratingImageUrl = business[@"rating_img_url"];
     NSURL *ratingUrl = [NSURL URLWithString:ratingImageUrl];
     [cell.businessRatingsLabel setImageWithURL:ratingUrl];
-    
-    NSLog(@"%@", business);
     return cell;
 }
 

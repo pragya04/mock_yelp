@@ -15,7 +15,7 @@
 @property (nonatomic, assign) BOOL sortSectionExpanded;
 @property (nonatomic, assign) BOOL categorySectionExpanded;
 @property (nonatomic, strong) NSMutableDictionary *expanded;
-@property (nonatomic, strong) NSMutableDictionary *filters;
+@property (nonatomic, strong) NSMutableDictionary *filterQuery;
 @property (nonatomic, strong) NSMutableArray *categories;
 @property (nonatomic, assign) NSInteger initialCategoriesRows;
 @property (nonatomic, assign) NSInteger selectedRow;
@@ -65,7 +65,6 @@
 - (void)updateSearch
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-   
     
 //    NSMutableDictionary *filters = [[NSMutableDictionary alloc] init];
 //    
@@ -101,11 +100,17 @@
     } else {
         CGRect frame = CGRectMake(250.0, 6.0, 32.0, 32.0);
         UISwitch *deals = [[UISwitch alloc] initWithFrame:frame];
+        [deals addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
         [cell addSubview: deals];
     }
     return cell;
 }
 
+- (void)switchValueChanged:(UISwitch *)theSwitch {
+//    BOOL flag = theSwitch.on;
+//    [self.filterQuery setValue:1 forKey:@"deals_filter"];
+//    NSLog(@"%@", self.filterQuery);
+}
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
    return [self.filters.sections count];
