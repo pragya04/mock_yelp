@@ -8,7 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "Filters.h"
+#import "layoutViewController.h"
+
+
+@class yelpTableViewController;
+
+@protocol SearchDelegate <NSObject>
+
+- (void) updateSearch:(yelpTableViewController *)yelpTableViewController;
+
+@end
+
 @interface yelpTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) Filters *filters;
+@property (nonatomic, weak) id <SearchDelegate> delegate;
+@property (nonatomic, strong) NSMutableDictionary *filterQuery;
 
 @end

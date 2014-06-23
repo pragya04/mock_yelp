@@ -8,6 +8,7 @@
 
 #import "yelpTableViewController.h"
 
+
 @interface yelpTableViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, assign) NSInteger collapsedSectionIndex;
@@ -15,10 +16,12 @@
 @property (nonatomic, assign) BOOL sortSectionExpanded;
 @property (nonatomic, assign) BOOL categorySectionExpanded;
 @property (nonatomic, strong) NSMutableDictionary *expanded;
-@property (nonatomic, strong) NSMutableDictionary *filterQuery;
 @property (nonatomic, strong) NSMutableArray *categories;
 @property (nonatomic, assign) NSInteger initialCategoriesRows;
 @property (nonatomic, assign) NSInteger selectedRow;
+@property (nonatomic, assign) BOOL dealsFlag;
+@property (nonatomic, assign) NSInteger sortType;
+@property (nonatomic, assign) NSString* categoryType;
 
 
 @end
@@ -64,12 +67,12 @@
 }
 - (void)updateSearch
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    layoutViewController *lc = [[layoutViewController alloc] initWithNibName:@"layoutViewController" bundle:nil];
+    lc.isDealsOn = self.dealsFlag;
+    lc.sortTypeIndex = self.sortType;
+    lc.categoryType = self.categoryType;
+    [self.navigationController pushViewController:lc animated:YES];
     
-//    NSMutableDictionary *filters = [[NSMutableDictionary alloc] init];
-//    
-//    self.filters = filters;
-//    [self.delegate updateSearch:self];
     
 }
 
@@ -107,9 +110,7 @@
 }
 
 - (void)switchValueChanged:(UISwitch *)theSwitch {
-//    BOOL flag = theSwitch.on;
-//    [self.filterQuery setValue:1 forKey:@"deals_filter"];
-//    NSLog(@"%@", self.filterQuery);
+    self.dealsFlag = theSwitch.on;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -128,9 +129,15 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     self.expanded[@(indexPath.section)] = @(![self.expanded[@(indexPath.section)] boolValue]);
     self.selectedRow = indexPath.row;
+    if(indexPath.section == 2) {
+        self.sortType = self.selectedRow;
+    }
+    NSArray *rows = self.filters.sections[indexPath.section][@"rows"];
+    if(indexPath.section == 4) {
+        self.categoryType = rows[indexPath.row];
+    }
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
 }
 

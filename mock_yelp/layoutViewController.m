@@ -21,9 +21,9 @@ NSString * const kYelpTokenSecret = @"KIsMp5VsBSR4v8Aj30GbyaV74HI";
 @property (weak, nonatomic) IBOutlet UITableView *businessesListTableView;
 @property (nonatomic, strong) yelpClient *client;
 @property (nonatomic, strong) NSArray *businesses;
+@property (nonatomic, strong) NSString *str;
 @property (nonatomic, strong) yelpTableViewController *fvc;
 @property (nonatomic, strong) UISearchBar *searchBar;
-
 @end
 
 @implementation layoutViewController
@@ -61,8 +61,7 @@ NSString * const kYelpTokenSecret = @"KIsMp5VsBSR4v8Aj30GbyaV74HI";
     self.businessesListTableView.dataSource = self;
     [self.businessesListTableView registerNib:[UINib nibWithNibName:@"yelpListTableViewCell" bundle:nil] forCellReuseIdentifier:@"yelpListTableViewCell"];
     self.businessesListTableView.rowHeight = 110;
-    
-    [self runSearch:@{@"category_filter": @"restaurants", @"term":@"restaurants"}];
+    [self runSearch:@{@"category_filter": @"restaurants", @"term":@"restaurants", @"deals_filter": @(self.isDealsOn), @"sort": @(self.sortTypeIndex)}];
 }
 
 
@@ -126,7 +125,12 @@ NSString * const kYelpTokenSecret = @"KIsMp5VsBSR4v8Aj30GbyaV74HI";
                             NSLog(@"error: %@", [error description]);
                         }];
 }
-
+- (void) updateSearch:(yelpTableViewController *)yelpTableViewController
+{
+    NSLog(@"here");
+    [self.navigationController popViewControllerAnimated:YES];
+    [self runSearch:yelpTableViewController.filterQuery];
+}
 
 
 @end
