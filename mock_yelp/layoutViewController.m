@@ -21,7 +21,6 @@ NSString * const kYelpTokenSecret = @"KIsMp5VsBSR4v8Aj30GbyaV74HI";
 @property (weak, nonatomic) IBOutlet UITableView *businessesListTableView;
 @property (nonatomic, strong) yelpClient *client;
 @property (nonatomic, strong) NSArray *businesses;
-@property (nonatomic, strong) NSString *str;
 @property (nonatomic, strong) yelpTableViewController *fvc;
 @property (nonatomic, strong) UISearchBar *searchBar;
 @end
@@ -56,12 +55,19 @@ NSString * const kYelpTokenSecret = @"KIsMp5VsBSR4v8Aj30GbyaV74HI";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.filters = [[Filters alloc] init];
     self.navigationItem.titleView = self.searchBar;
     self.businessesListTableView.delegate = self;
     self.businessesListTableView.dataSource = self;
     [self.businessesListTableView registerNib:[UINib nibWithNibName:@"yelpListTableViewCell" bundle:nil] forCellReuseIdentifier:@"yelpListTableViewCell"];
     self.businessesListTableView.rowHeight = 110;
-    [self runSearch:@{@"category_filter": @"restaurants", @"term":@"restaurants", @"deals_filter": @(self.isDealsOn), @"sort": @(self.sortTypeIndex)}];
+    NSString *category;
+    if(self.categoryType == nil) {
+        category = @"restaurants";
+    } else {
+        category = [self.filters.allCategories valueForKey:self.categoryType];
+    }
+    [self runSearch:@{@"category_filter": category, @"term":category, @"deals_filter": @(self.isDealsOn), @"sort": @(self.sortTypeIndex)}];
 }
 
 
@@ -90,8 +96,7 @@ NSString * const kYelpTokenSecret = @"KIsMp5VsBSR4v8Aj30GbyaV74HI";
         cell.businessImageView.image = image;
     }
         failure:nil];
-    
-    cell.businessAddress.text = business[@"location"][@"address"][0];
+    cell.businessAddress.text = (business[@"location"][@"address"][0]);
     
     NSString *ratingImageUrl = business[@"rating_img_url"];
     NSURL *ratingUrl = [NSURL URLWithString:ratingImageUrl];
@@ -111,6 +116,8 @@ NSString * const kYelpTokenSecret = @"KIsMp5VsBSR4v8Aj30GbyaV74HI";
     if (![searchBar.text isEqualToString:@""]) {
         params[@"term"] = searchBar.text;
     }
+    params[@"deals_filter"] = @(NO);
+    params[@"sort"] = @0;
     [self runSearch:params];
     [searchBar endEditing:YES];
 }
@@ -125,12 +132,5 @@ NSString * const kYelpTokenSecret = @"KIsMp5VsBSR4v8Aj30GbyaV74HI";
                             NSLog(@"error: %@", [error description]);
                         }];
 }
-- (void) updateSearch:(yelpTableViewController *)yelpTableViewController
-{
-    NSLog(@"here");
-    [self.navigationController popViewControllerAnimated:YES];
-    [self runSearch:yelpTableViewController.filterQuery];
-}
-
 
 @end

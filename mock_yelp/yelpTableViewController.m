@@ -63,7 +63,8 @@
 
 - (void)onCancelButtonClick
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    layoutViewController *lc = [[layoutViewController alloc] initWithNibName:@"layoutViewController" bundle:nil];
+    [self.navigationController pushViewController:lc animated:YES];
 }
 - (void)updateSearch
 {
@@ -135,7 +136,7 @@
         self.sortType = self.selectedRow;
     }
     NSArray *rows = self.filters.sections[indexPath.section][@"rows"];
-    if(indexPath.section == 4) {
+    if(indexPath.section == 3) {
         self.categoryType = rows[indexPath.row];
     }
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];

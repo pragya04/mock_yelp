@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSString *searchTerm;
 @property (nonatomic, strong) NSArray *sections;
 @property (nonatomic, strong) NSMutableArray *categories;
+@property (nonatomic, strong) NSDictionary *allCategories;
 @property (nonatomic, strong) NSMutableDictionary *parametersArray;
 @property (nonatomic, assign) NSInteger sortIndex;
 @property (nonatomic, assign) NSInteger distanceIndex;

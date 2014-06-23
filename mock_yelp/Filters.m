@@ -8,7 +8,6 @@
 
 #import "Filters.h"
 @interface Filters()
-@property (nonatomic, strong) NSDictionary *allCategories;
 @end
 
 @implementation Filters
