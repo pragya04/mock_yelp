@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Filters.h"
-
 @interface yelpTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) Filters *filters;
+
 @end

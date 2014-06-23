@@ -8,6 +8,7 @@
 
 #import "yelpAppDelegate.h"
 #import "yelpTableViewController.h"
+#import "layoutViewController.h"
 
 @implementation yelpAppDelegate
 
@@ -15,10 +16,14 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    yelpTableViewController *vc = [[yelpTableViewController alloc]init];
+//    yelpTableViewController *vc = [[yelpTableViewController alloc]init];
+    layoutViewController *vc = [[layoutViewController alloc]init];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     self.window.rootViewController = nc;
 
+    nc.navigationBar.barTintColor = [UIColor redColor];
+    nc.navigationBar.tintColor = [UIColor whiteColor];
+    [nc.navigationBar setBarStyle:UIBarStyleBlack];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

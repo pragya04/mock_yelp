@@ -15,9 +15,11 @@
 @property (nonatomic, assign) BOOL sortSectionExpanded;
 @property (nonatomic, assign) BOOL categorySectionExpanded;
 @property (nonatomic, strong) NSMutableDictionary *expanded;
+@property (nonatomic, strong) NSMutableDictionary *filters;
 @property (nonatomic, strong) NSMutableArray *categories;
 @property (nonatomic, assign) NSInteger initialCategoriesRows;
 @property (nonatomic, assign) NSInteger selectedRow;
+
 
 @end
 
@@ -39,10 +41,10 @@
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(onDoneButtonClick)];
-    self.navigationItem.leftBarButtonItem = doneButton;
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(onCancelButtonClick)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
     
-    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStyleDone target:self action:@selector(onSearchButtonClick)];
+    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStyleDone target:self action:@selector(updateSearch)];
     self.navigationItem.rightBarButtonItem = searchButton;
     
     self.filters = [[Filters alloc] init];
@@ -56,13 +58,20 @@
 
 #pragma mark - button click handlers
 
-- (void)onDoneButtonClick
+- (void)onCancelButtonClick
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-- (void)onSearchButtonClick
+- (void)updateSearch
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+   
+    
+//    NSMutableDictionary *filters = [[NSMutableDictionary alloc] init];
+//    
+//    self.filters = filters;
+//    [self.delegate updateSearch:self];
+    
 }
 
 
@@ -114,7 +123,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     self.expanded[@(indexPath.section)] = @(![self.expanded[@(indexPath.section)] boolValue]);
     self.selectedRow = indexPath.row;
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
