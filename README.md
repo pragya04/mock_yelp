@@ -15,7 +15,7 @@ Filter page.
 * [x] [Required] The filters table should be organized into sections as in the mock.
 * [x] [Required] You can use the default UISwitch for on/off states.
 * [x] [Required] Radius filter should expand as in the real Yelp app
-* [x] [Required] Categories should show a subset of the full list with a "See All" row to expand.
+* [] [Required] Categories should show a subset of the full list with a "See All" row to expand.(missed this story, will complete this week)
 * [x] [Required] Clicking on the "Search" button should dismiss the filters page and trigger the search w/ the new filter settings.
 
 
