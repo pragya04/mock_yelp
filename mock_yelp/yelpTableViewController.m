@@ -73,8 +73,6 @@
     lc.sortTypeIndex = self.sortType;
     lc.categoryType = self.categoryType;
     [self.navigationController pushViewController:lc animated:YES];
-    
-    
 }
 
 

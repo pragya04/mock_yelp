@@ -15,8 +15,6 @@
 
 @protocol SearchDelegate <NSObject>
 
-- (void) updateSearch:(yelpTableViewController *)yelpTableViewController;
-
 @end
 
 @interface yelpTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
